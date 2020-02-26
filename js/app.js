@@ -30,3 +30,29 @@
 
 // HINTS
 // Ryu image animation via `.hide()` & `.show()` methods
+
+
+
+// `$(document).ready(function(){})` is an event handler that listens for the page to be ready. 
+// Once the page has loaded everything and is ready, the function you passed in — referred to as the callback function — is stored in the browser's memory...
+$(document).ready(function() {
+
+  // EVENT 1
+  // Select the DOM element with the class ryu
+  // and attach an new event handler .mouseenter to it
+  // Every time the event happens, the browser invokes the callback function from its memory in response to the event. 
+  // Cause and effect, event and callback function, respectively.
+  $('.ryu').mouseenter(function() {
+    // alert('mouse entered .ryu div');
+    $('.ryu-still').hide();
+    $('.ryu-ready').show();
+  })
+    // notice the "method chaining" 
+    // no need to explicitly preface another handler associated with `$('.ryu')`, but need to remove semi-colon closure from the  previous handler it's chained to.
+    .mouseleave(function() {
+      $('.ryu-still').show();
+      $('.ryu-ready').hide();
+    });
+
+
+});
