@@ -47,12 +47,34 @@ $(document).ready(function() {
     $('.ryu-still').hide();
     $('.ryu-ready').show();
   })
+    ///////////////
     // notice the "method chaining" 
+    //
     // no need to explicitly preface another handler associated with `$('.ryu')`, but need to remove semi-colon closure from the  previous handler it's chained to.
+    ///////////////
     .mouseleave(function() {
       $('.ryu-still').show();
       $('.ryu-ready').hide();
+    })
+
+  // EVENT 2
+  // Ryu.onClick => 
+  // Ryu-img throwing hadouken pose
+  // + hadouken-img animated left-to-right
+  // + sound effect
+  // Ryu.onRelease => Ryu-img returns to ready position
+  // Hint: listen to mousedown & mouseup click events
+    .mousedown(function() {
+      $('.ryu-ready').hide();
+      $('.ryu-throwing').show();
+      $('.hadouken').show();
+    })
+    .mouseup(function() {
+      $('.ryu-ready').show();
+      $('.ryu-throwing').hide();
     });
+
+
 
 
 });
