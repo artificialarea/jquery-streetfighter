@@ -65,16 +65,27 @@ $(document).ready(function() {
   // Ryu.onRelease => Ryu-img returns to ready position
   // Hint: listen to mousedown & mouseup click events
     .mousedown(function() {
+      playHadouken();
       $('.ryu-ready').hide();
       $('.ryu-throwing').show();
-      $('.hadouken').show();
+      // note methods .animate() and .finish() 
+      $('.hadouken').finish().show().animate(
+        {'left': '1020px'}, // direction + end point
+        800, // duration in milliseconds
+        function() { // callback function 
+          $('.hadouken').hide();
+          $('.hadouken').css('left', '530px'); // reset position
+        }
+      );
     })
     .mouseup(function() {
       $('.ryu-ready').show();
       $('.ryu-throwing').hide();
     });
-
-
-
-
 });
+
+function playHadouken() {
+  $('#hadouken-sound')[0].volume = 0.5;
+  $('#hadouken-sound')[0].load();
+  $('#hadouken-sound')[0].play();
+}
