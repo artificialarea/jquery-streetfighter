@@ -25,7 +25,7 @@ main {
 
 .ryu {
   float: left; /* to align div.ryu with div.hadouken */
-  width: 659px;
+  width: 400px; /* shortened from 659px so hover area closer to actual figure */
   height: 494px;
 }
 
@@ -33,9 +33,11 @@ main {
 .ryu-ready,
 .ryu-throwing,
 .ryu-cool {
-  width: 659px;
+  width: 400px;
   height: 494px;
 } 
+
+.ryu-throwing { width: 659px }
 
 /* by default, display .ryu-still by hiding the others */
 .ryu-ready,
