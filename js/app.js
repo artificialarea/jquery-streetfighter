@@ -1,5 +1,11 @@
 'use strict';
 
+/* 
+made adjustments based on source demo
+http://benjaminewhite.github.io/jquery-streetfighter-example/index.html
+*/
+
+
 $(document).ready(function() {
   playGame();
 
