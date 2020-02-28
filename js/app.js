@@ -1,101 +1,116 @@
 'use strict';
 
-// PSEUDOCODE it first. outline the user experience and conditions.
-
-// page loads, Ryu-img is standing still
-// sequence of titlecard fade in/outs
-
-// EVENT 1
-// Ryu:hover (with mouse) => Ryu-img gif anime of ready position
-// if no longer Ryu:hover => Ryu-img returns to standing still
-// Hint: listen to mouseenter & mouseleave events
-
-
-// EVENT 2
-// Ryu.onClick => 
-//    Ryu-img throwing hadouken pose
-//    + hadouken-img animated left-to-right
-//    + sound effect
-// Ryu.onRelease => Ryu-img returns to ready position
-// Hint: listen to mousedown & mouseup click events
-
-
-// EVENT 3
-// key('x').onPress => 
-//    Ryu-img cool pose
-//    + sound effect
-// key('x').onRelease => Ryu-img returns to ready pose + sound effect off
-// Hint: listen for keydown & keyup events. The key code for "x" is 88.
-
-
-// HINTS
-// Ryu image animation via `.hide()` & `.show()` methods
-
-
-
-// `$(document).ready(function(){})` is an event handler that listens for the page to be ready. 
-// Once the page has loaded everything and is ready, the function you passed in — referred to as the callback function — is stored in the browser's memory...
 $(document).ready(function() {
+  playGame();
+
+});
+
+var hover = false; // this is for determining which image to show after .keyup event (still img or ready?)
+
+
+function playGame() {
 
   // EVENT 1
-  // Select the DOM element with the class ryu
-  // and attach an new event handler .mouseenter to it
-  // Every time the event happens, the browser invokes the callback function from its memory in response to the event. 
-  // Cause and effect, event and callback function, respectively.
   $('.ryu').mouseenter(function() {
+    hover = true;
     // alert('mouse entered .ryu div');
-    $('.ryu-still').hide();
+    $('.ryu-pose').hide(); // hide all images of ryu instead of targetings specific image(s), then instantaneously show the specific pose desired
     $('.ryu-ready').show();
   })
+  .mouseleave(function() {
     ///////////////
-    // notice the "method chaining" 
+    // NOTE: "method chaining" 
     //
     // no need to explicitly preface another handler associated with `$('.ryu')`, but need to remove semi-colon closure from the  previous handler it's chained to.
     ///////////////
-    .mouseleave(function() {
-      $('.ryu-still').show();
-      $('.ryu-ready').hide();
-    })
+    hover = false;
+    $('.ryu-pose').show();
+    $('.ryu-ready').hide();
 
-  // EVENT 2
-  // Ryu.onClick => 
-  //    Ryu-img throwing hadouken pose
-  //    + hadouken-img animated left-to-right
-  //    + sound effect
-  // Ryu.onRelease => Ryu-img returns to ready position
-  // Hint: listen to mousedown & mouseup click events
-    .mousedown(function() {
-      playHadouken();
-      $('.ryu-ready').hide();
-      $('.ryu-throwing').show();
-      // note methods .animate() and .finish() 
-      $('.hadouken').finish().show().animate(
-        {'left': '1020px'}, // direction + end point
-        800, // duration in milliseconds
-        function() { // callback function 
-          $('.hadouken').hide();
-          $('.hadouken').css('left', '530px'); // reset position
-        }
-      );
-    })
-    .mouseup(function() {
-      $('.ryu-ready').show();
-      $('.ryu-throwing').hide();
-    });
-  // EVENT 3
-  // key('x').onPress => 
-  //    Ryu-img cool pose
-  //    + sound effect
-  // key('x').onRelease => Ryu-img returns to ready pose + sound effect off
-  // Hint: listen for keydown & keyup events. The key code for "x" is 88.
-  $('x').keydown(function() {
-    console.log("x key pressed");
+  })
+  .mousedown(function() { // EVENT 2
+    playHadouken();
+    $('.ryu-pose').hide();
+    $('.ryu-throwing').show();
+    // note methods .animate() and .finish() 
+    $('.hadouken').finish().show().animate(
+      {'left': '1020px'}, // direction + end point
+      500, // duration in milliseconds
+      function() { // callback function 
+        $('.hadouken').hide();
+        $('.hadouken').css('left', '530px'); // reset position
+      }
+    );
+  })
+  .mouseup(function() {
+    $('.ryu-pose').hide();
+    $('.ryu-ready').show();
 
   });
-});
+  
+  // EVENT 3
+  // Hint: The key code for "x" is 88.
+    
+  // attach to uber-element 'document' instead of 'body' element (which works, too)
+  $(document).keydown(function(event) {
+    console.log(event.type + ": " + event.which);
+    // NOTE: `event.which` property 
+    // which normalizes `event.keyCode` and `event.charCode` (and even `event.button` properties like `.mousedown` and `.mouseup` events). It is recommended to watch event.which for keyboard key input.
+    if(event.which === 88) {
+      playCool();
+      $('.ryu-pose').hide();
+      $('.ryu-cool').show();
+    }
+ 
+  })
+  .keyup(function(e) { // syntax protocol: e === event
+ 
+    if(e.which === 88) { 
+      $('#cool-sound')[0].pause();
+      $('#cool-sound')[0].load(); //  akin to stop, to reset the file so when .play() evoked again it starts from the beginning.
+      $('.ryu-pose').hide();
+      
+      if (hover) { // aka hover === true
+        $('.ryu-ready').show();
+      } else {
+        $('.ryu-still').show();
+      }
+    }
+
+
+  });
+  /*
+    $('body').on('keyup', function(event) {
+      console.log(event.type + ": " + event.which);
+      $('#ryu-cool')[0].pause();
+    });
+    */
+  
+  //$('body').trigger(x);
+
+}
+
 
 function playHadouken() {
   $('#hadouken-sound')[0].volume = 0.5;
-  $('#hadouken-sound')[0].load();
+  $('#hadouken-sound')[0].load(); // resets sound to the beginning if needed
   $('#hadouken-sound')[0].play();
+}
+
+// source file had these Boolean conditions, but I don't know why?
+//var coolSound = false;
+
+function playCool() {
+  $('#cool-sound')[0].play();
+  // $('#cool-sound')[0].load(); 
+  // ^^^^^ can't have .load() because if .keydown isn't released it keeps repeatedly loading the sound, so it never can play.
+  
+  /* 
+  // source file had these Boolean conditions, but I don't know why?
+  coolSound = !coolSound;  // => coolSound = true
+  if (coolSound) {         // aka if coolSound === true
+    $('#intro-theme')[0].pause();
+    $('#cool-sound')[0].play();
+  }
+  */
 }
