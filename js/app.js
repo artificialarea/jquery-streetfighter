@@ -4,11 +4,12 @@
 made adjustments based on source demo
 http://benjaminewhite.github.io/jquery-streetfighter-example/index.html
 
-also, version with comments at app-comments.js
+version with comments see: app-comments.js
 */
 
 
 $(document).ready(function() {
+  intro();
   playGame();
 });
 
@@ -24,8 +25,8 @@ function playGame() {
   })
   .mouseleave(function() {
     hover = false;
-    $('.ryu-pose').show();
-    $('.ryu-ready').hide();
+    $('.ryu-pose').hide();
+    $('.ryu-still').show();
   });
 
   // EVENT 2
@@ -56,7 +57,7 @@ function playGame() {
       $('.ryu-pose').hide();
       $('.ryu-cool').show();
     }
-    console.log(event.type + ": " + event.which);
+    console.log(event.type + ': ' + event.which);
   })
   .keyup(function(e) { 
     if(e.which === 88) { 
@@ -80,4 +81,9 @@ function playHadouken() {
 
 function playCool() {
   $('#cool-sound')[0].play();
+}
+
+function intro() {
+
+
 }

@@ -79,4 +79,30 @@ main {
   z-index: 10;
 }
 
+.introBody {
+  display: absolute;
+  width: 700px;
+  height: 400px;
+  left: 300px;
+}
 
+.intro {
+  /* 
+  display: relative;
+  display: none; 
+  */
+  width: 700px;
+  height: 400px;
+}
+
+.sf-logo {
+  background: url('../images/sf-logo.png');
+  background-repeat: no-repeat;
+  display: none;
+  left: 200px;
+}
+
+.jquery-logo {
+  background: url('../images/jquery-logo.png');
+  background-repeat: no-repeat;
+}
