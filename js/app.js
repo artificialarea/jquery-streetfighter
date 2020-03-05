@@ -14,6 +14,7 @@ $(document).ready(function() {
 });
 
 var hover = false;
+var instructionsVisible = false;
 
 function playGame() {
 
@@ -34,7 +35,10 @@ function playGame() {
     playHadouken();
     $('.ryu-pose').hide();
     $('.ryu-throwing').show();
-
+    if (instructionsVisible) {
+      $('.instructions p:first').hide();
+    }
+    
     $('.hadouken').finish().show().animate(
       {'left': '1020px'}, 
       500, 
@@ -56,6 +60,9 @@ function playGame() {
       playCool();
       $('.ryu-pose').hide();
       $('.ryu-cool').show();
+      if (instructionsVisible) {
+        $('.instructions p:last').hide();
+      }
     }
     console.log(event.type + ': ' + event.which);
   })
@@ -80,10 +87,25 @@ function playHadouken() {
 }
 
 function playCool() {
+  $('#intro-theme')[0].pause();
   $('#cool-sound')[0].play();
 }
 
 function intro() {
-
-
+  $('#intro-theme')[0].volume = 0.3;
+  $('#intro-theme')[0].play();
+  $('.sf-logo').fadeIn(3500, function() {
+    $('.sf-logo').fadeOut(1000, function() {
+      $('.byline').fadeIn(1500, function() {
+        $('.byline').fadeOut(1000, function() {
+          $('.jquery-logo').fadeIn(1500, function() {
+            $('.jquery-logo').fadeOut(1000, function() {
+              $('.instructions').fadeIn(1000);
+              instructionsVisible = true;
+            });
+          });
+        });
+      });
+    });
+  });
 }

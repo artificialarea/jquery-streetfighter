@@ -11,6 +11,7 @@
 
 body {
   background-color: black;
+  font-family: comical;
 }
 
 main {
@@ -27,6 +28,7 @@ main {
   float: left; /* to align div.ryu with div.hadouken */
   width: 400px; /* shortened from 659px so hover area closer to actual figure */
   height: 494px;
+  z-index: 100;
 }
 
 .ryu-still, 
@@ -79,30 +81,58 @@ main {
   z-index: 10;
 }
 
-.introBody {
-  display: absolute;
-  width: 700px;
-  height: 400px;
-  left: 300px;
+.content {
+  /* background-color: rgba(100, 100, 100, .2); */
+  width: 620px;
+  position: absolute;
+  left: 500px;
+  top: 100px;
+  z-index: -1;
 }
-
-.intro {
-  /* 
-  display: relative;
-  display: none; 
-  */
-  width: 700px;
-  height: 400px;
-}
+/* .intro {
+  display:none;
+  /* need to have display:none intially on each element selector to position individually
+} */
 
 .sf-logo {
+  display: none;
   background: url('../images/sf-logo.png');
   background-repeat: no-repeat;
-  display: none;
   left: 200px;
+  width: 682px;
+  height: 314px;
+  
 }
 
 .jquery-logo {
+  display: none;
   background: url('../images/jquery-logo.png');
   background-repeat: no-repeat;
+  width: 500px;
+  height: 172px;
+  
+}
+
+.byline {
+  display:none;
+  font-size: 24px;
+}
+
+.instructions {
+  display:none;
+  font-size: 24px;
+}
+
+.instructions p {
+  width: 300px;
+}
+.instructions p:first-child {
+  color: rgb(35, 96, 226);
+  float:left;
+}
+
+.instructions p:last-child {
+  color: rgb(0, 110, 255);
+  float:right;
+  margin-top: 80px;
 }
