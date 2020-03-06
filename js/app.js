@@ -7,8 +7,8 @@ http://benjaminewhite.github.io/jquery-streetfighter-example/index.html
 version with comments see: app-comments.js
 */
 
-
-$(document).ready(function() {
+/* $(document).ready(); depreciated */
+$(function() {
   intro();
   playGame();
 });
